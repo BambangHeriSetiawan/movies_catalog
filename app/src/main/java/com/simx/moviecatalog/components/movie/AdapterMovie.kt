@@ -11,7 +11,7 @@ import com.simx.moviecatalog.databinding.ItemMovieBinding
 
 class AdapterMovie(var listener: OnAdapterMovieListener): PagingDataAdapter<Movie, AdapterMovie.Holder>(GlobalTools.diffUtilMovie){
     interface OnAdapterMovieListener {
-        fun onClick( dat: Movie?)
+        fun onClick( data: Movie?)
     }
 
     class Holder(var binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {

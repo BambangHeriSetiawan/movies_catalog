@@ -1,5 +1,6 @@
 package com.simx.moviecatalog.ui.main.fr
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.simx.moviecatalog.components.movie.AdapterMovie
 import com.simx.moviecatalog.data.models.movie.Movie
 import com.simx.moviecatalog.databinding.PlayingNowFragmentBinding
 import com.simx.moviecatalog.ui.main.MainVm
+import com.simx.moviecatalog.ui.main.detail_movie.DetailMovieActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -34,7 +36,11 @@ class PlayingNowFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.mainVm = vm
         adapterMove = AdapterMovie(object : AdapterMovie.OnAdapterMovieListener {
-            override fun onClick(dat: Movie?) {
+            override fun onClick(data: Movie?) {
+                Intent(this@PlayingNowFragment.context, DetailMovieActivity::class.java).apply {
+                    this.putExtra(DetailMovieActivity.KEY_DATA, data)
+                    startActivity(this)
+                }
             }
         })
         return binding.root
