@@ -11,8 +11,8 @@ interface ApiMovie {
     @Headers("Accept: application/json", "Content-type: application/json")
     @GET("movie/{type}")
     suspend fun moviesAsync(
-        @Query("api_key")apiKey:String?,
         @Path("type")type:String?,
+        @Query("api_key")apiKey:String?,
         @Query("page") page:Int?
     ): Response<ResponseMovies>
 

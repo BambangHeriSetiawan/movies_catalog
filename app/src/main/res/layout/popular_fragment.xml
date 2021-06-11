@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <data>
+    <variable name="mainVm" type="com.simx.moviecatalog.ui.main.MainVm"/>
+    <import type="android.view.View"/>
+  </data>
+  <RelativeLayout
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.fr.PopularFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+      tools:itemCount="2"
+      tools:listitem="@layout/item_movie"
+      android:id="@+id/rcv_popular"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+    <ProgressBar
+      android:visibility="@{mainVm.loading? View.VISIBLE:View.GONE}"
+      android:layout_centerInParent="true"
+      android:layout_width="50dp"
+      android:layout_height="50dp"/>
+  </RelativeLayout>
+</layout>
+
