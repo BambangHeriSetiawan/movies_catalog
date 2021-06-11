@@ -8,6 +8,9 @@ import com.simx.moviecatalog.R
 import com.simx.moviecatalog.data.models.movie.Movie
 import com.simx.moviecatalog.data.models.movie.ResponseMovie
 import com.simx.moviecatalog.data.models.movie.ResponseMovies
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 object GlobalTools {
     fun youtubeUrl(key:String?):String {
@@ -25,6 +28,28 @@ object GlobalTools {
     fun image500(path:String?): String {
         return "https://image.tmdb.org/t/p/w500$path"
     }
+
+    private const val DATE_PATTERN_TO_HUMAN = "MMM d, yyyy"
+    private const val DATE_PATTERN_TO_DEFAULT = "yyyy-MM-dd"
+
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    fun dateToString(value:String?): String? {
+        val sdf0 = SimpleDateFormat(DATE_PATTERN_TO_DEFAULT, Locale.ENGLISH)
+        val sdf1 = SimpleDateFormat(DATE_PATTERN_TO_HUMAN, Locale.ENGLISH)
+        if (!value.isNullOrEmpty()){
+            return try {
+                sdf1.format(sdf0.parse(value).time)
+            }catch (e: IOException){
+                e.message
+            }
+
+        }
+        return "--"
+    }
+
+
+
+
 
     fun loadImage(imageView:ImageView, url:String){
         val loader = ImageLoader(imageView.context)
