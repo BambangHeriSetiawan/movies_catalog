@@ -2,8 +2,8 @@ package com.simx.moviecatalog.data.models.review
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.simx.moviecatalog.data.models.review.AuthorDetails
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
 
 @Parcelize
 data class Reviews(
