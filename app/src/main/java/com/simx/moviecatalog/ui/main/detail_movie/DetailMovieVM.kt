@@ -1,5 +1,6 @@
 package com.simx.moviecatalog.ui.main.detail_movie
 
+import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
@@ -21,7 +22,7 @@ class DetailMovieVM:BaseObservable() {
 
     fun videos(movieId:Int?){
         loadingVideo.set(true)
-        ApiRequest.videos(movieId = movieId, page = null, listener = object : ApiRequest.OnVideoListener {
+        ApiRequest.videos(movieId = movieId,  listener = object : ApiRequest.OnVideoListener {
             override fun onSuccess(data: List<Videos>?) {
                 videos.postValue(data)
             }
@@ -34,11 +35,11 @@ class DetailMovieVM:BaseObservable() {
                 loadingVideo.set(state)
             }
         })
-        reviews(movieId)
+
     }
     fun reviews(movieId:Int?){
         loadingReview.set(true)
-        ApiRequest.reviews(movieId = movieId, page = null, listener = object : ApiRequest.OnReviewListener {
+        ApiRequest.reviews(movieId = movieId, listener = object : ApiRequest.OnReviewListener {
             override fun onSuccess(data: List<Reviews>?) {
                 reviews.postValue(data)
             }

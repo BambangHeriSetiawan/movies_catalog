@@ -83,7 +83,7 @@
             android:text="Videos"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/design_default_color_primary_variant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
           <androidx.recyclerview.widget.RecyclerView
@@ -106,7 +106,7 @@
             android:text="Reviews"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/design_default_color_primary_variant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
           <androidx.recyclerview.widget.RecyclerView

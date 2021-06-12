@@ -1,8 +1,8 @@
 package com.simx.moviecatalog.data.api
 
-import androidx.viewbinding.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.simx.moviecatalog.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

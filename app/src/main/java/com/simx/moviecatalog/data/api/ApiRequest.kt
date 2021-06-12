@@ -1,5 +1,7 @@
 package com.simx.moviecatalog.data.api
 
+import android.util.Log
+import com.simx.moviecatalog.BuildConfig
 import com.simx.moviecatalog.data.models.movie.Movie
 import com.simx.moviecatalog.data.models.review.Reviews
 import com.simx.moviecatalog.data.models.video.Videos
@@ -26,7 +28,7 @@ object ApiRequest {
                 listener.onFailed(throwable.toString())
                 listener.onLoad(false)
             }).launch {
-                ApiMovie.Factory.create().moviesAsync("8bd5fd5cf00be94f16916661aac61163", path, page).let { response ->
+                ApiMovie.Factory.create().moviesAsync(BuildConfig.API_KEY, path, page).let { response ->
                     listener.onLoad(false)
                     if (response.isSuccessful){
                         listener.onSuccess(response.body()?.results)
@@ -47,7 +49,7 @@ object ApiRequest {
         fun onLoad(state:Boolean)
     }
 
-    fun reviews(movieId:Int?, page:Int?, listener: OnReviewListener){
+    fun reviews(movieId:Int?, listener: OnReviewListener){
         listener.onLoad(true)
         try {
             CoroutineScope(CoroutineExceptionHandler { _, throwable ->
@@ -55,7 +57,7 @@ object ApiRequest {
                 listener.onFailed(throwable.toString())
                 listener.onLoad(false)
             }).launch {
-                ApiMovie.Factory.create().moviesReviewAsync("8bd5fd5cf00be94f16916661aac61163", movieId, page).let { response ->
+                ApiMovie.Factory.create().moviesReviewAsync( movieId,BuildConfig.API_KEY).let { response ->
                     listener.onLoad(false)
                     if (response.isSuccessful){
                         listener.onSuccess(response.body()?.results)
@@ -75,7 +77,7 @@ object ApiRequest {
         fun onFailed(msg:String)
         fun onLoad(state:Boolean)
     }
-    fun videos(movieId:Int?, page:Int?,  listener: OnVideoListener){
+    fun videos(movieId:Int?, listener: OnVideoListener){
         listener.onLoad(true)
         try {
             CoroutineScope(CoroutineExceptionHandler { _, throwable ->
@@ -83,8 +85,9 @@ object ApiRequest {
                 listener.onFailed(throwable.toString())
                 listener.onLoad(false)
             }).launch {
-                ApiMovie.Factory.create().moviesVideosAsync("8bd5fd5cf00be94f16916661aac61163", movieId, page).let { response ->
+                ApiMovie.Factory.create().moviesVideosAsync(movieId, BuildConfig.API_KEY).let { response ->
                     listener.onLoad(false)
+                    Log.v("DetailMovieActivity","videos response -> ${response.body()}")
                     if (response.isSuccessful){
                         listener.onSuccess(response.body()?.results)
                     } else {

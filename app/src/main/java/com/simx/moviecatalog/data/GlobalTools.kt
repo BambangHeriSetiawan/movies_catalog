@@ -3,7 +3,11 @@ package com.simx.moviecatalog.data
 import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import coil.ImageLoader
+import coil.decode.VideoFrameDecoder
+import coil.fetch.VideoFrameFileFetcher
+import coil.fetch.VideoFrameUriFetcher
 import coil.request.ImageRequest
+import coil.transform.RoundedCornersTransformation
 import com.simx.moviecatalog.R
 import com.simx.moviecatalog.data.models.movie.Movie
 import com.simx.moviecatalog.data.models.movie.ResponseMovie
@@ -62,6 +66,40 @@ object GlobalTools {
     }
     fun loadImage(imageView:ImageView, url:Int){
         val loader = ImageLoader(imageView.context)
+        val req = ImageRequest.Builder(imageView.context)
+            .data(url)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .target(imageView)
+        loader.enqueue(req.build())
+    }
+    fun loadImageRounded(imageView:ImageView, url:String){
+        val loader = ImageLoader(imageView.context)
+        val req = ImageRequest.Builder(imageView.context)
+            .data(url)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .target(imageView)
+        req.transformations(RoundedCornersTransformation(1f))
+        loader.enqueue(req.build())
+    }
+    fun loadImageRounded(imageView:ImageView, url:Int){
+        val loader = ImageLoader(imageView.context)
+        val req = ImageRequest.Builder(imageView.context)
+            .data(url)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+            .target(imageView)
+        req.transformations(RoundedCornersTransformation(1f))
+        loader.enqueue(req.build())
+    }
+    fun loadVideo(imageView:ImageView, url:String?){
+        val loader = ImageLoader.Builder(imageView.context).componentRegistry {
+            add(VideoFrameFileFetcher(imageView.context))
+            add(VideoFrameUriFetcher(imageView.context))
+            add(VideoFrameDecoder(imageView.context))
+        }.build()
+
         val req = ImageRequest.Builder(imageView.context)
             .data(url)
             .placeholder(R.drawable.ic_launcher_background)

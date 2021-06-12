@@ -29,4 +29,8 @@ data class Videos(
 
     @field:SerializedName("key")
     val key: String? = null
-) : Parcelable
+) : Parcelable {
+    fun videoUrl():String {
+        return "https://www.youtube.com/embed/$key"
+    }
+}

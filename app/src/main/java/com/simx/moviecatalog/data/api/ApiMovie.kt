@@ -1,5 +1,6 @@
 package com.simx.moviecatalog.data.api
 
+import com.simx.moviecatalog.BuildConfig
 import com.simx.moviecatalog.data.models.movie.ResponseMovie
 import com.simx.moviecatalog.data.models.movie.ResponseMovies
 import com.simx.moviecatalog.data.models.review.ResponseReviews
@@ -19,29 +20,27 @@ interface ApiMovie {
     @Headers("Accept: application/json", "Content-type: application/json")
     @GET("movie/{id}")
     suspend fun moviesDetailAsync(
-        @Query("api_key")apiKey:String?,
-        @Path("id")type:Int?,
+        @Path("id")id:Int?,
+        @Query("api_key")apiKey:String?
     ): Response<ResponseMovie>
 
     @Headers("Accept: application/json", "Content-type: application/json")
     @GET("movie/{id}/reviews")
     suspend fun moviesReviewAsync(
-        @Query("api_key")apiKey:String?,
-        @Path("id")type:Int?,
-        @Query("page") page:Int?
+        @Path("id")id:Int?,
+        @Query("api_key")apiKey:String?
     ): Response<ResponseReviews>
 
     @Headers("Accept: application/json", "Content-type: application/json")
     @GET("movie/{id}/videos")
     suspend fun moviesVideosAsync(
-        @Query("api_key")apiKey:String?,
-        @Path("id")type:Int?,
-        @Query("page") page:Int?
+        @Path("id")id:Int?,
+        @Query("api_key")apiKey:String?
     ): Response<ResponseVideos>
 
     object Factory {
         fun create(): ApiMovie {
-            return ApiCore.retrofitConfig("https://api.themoviedb.org/3/").create(ApiMovie::class.java)
+            return ApiCore.retrofitConfig(BuildConfig.BASE_URL).create(ApiMovie::class.java)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.simx.moviecatalog.data.models.review
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.simx.moviecatalog.data.GlobalTools
 import kotlinx.parcelize.Parcelize
 
 
@@ -10,7 +11,6 @@ data class Reviews(
 
 	@field:SerializedName("author_details")
 	val authorDetails: AuthorDetails? = null,
-
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,
 
@@ -28,4 +28,16 @@ data class Reviews(
 
 	@field:SerializedName("url")
 	val url: String? = null
-) : Parcelable
+) : Parcelable {
+	fun avatar():String {
+		return if (authorDetails?.avatarPath?.contains("https", true)!!) authorDetails.avatarPath
+		else GlobalTools.image200(authorDetails.avatarPath)
+	}
+	fun rate():String {
+		return authorDetails?.rating?.toString() ?: "-"
+	}
+	fun content():String{
+		return if (content?.length!! >= 250) "${content.take(250)}... read more"
+		else content
+	}
+}
